@@ -93,6 +93,9 @@
     "monolog/monolog": {
         "version": "1.26.0"
     },
+    "nikic/php-parser": {
+        "version": "v4.10.4"
+    },
     "psr/cache": {
         "version": "1.0.1"
     },
@@ -160,6 +163,9 @@
     "symfony/dependency-injection": {
         "version": "v4.4.20"
     },
+    "symfony/deprecation-contracts": {
+        "version": "v2.2.0"
+    },
     "symfony/doctrine-bridge": {
         "version": "v4.4.20"
     },
@@ -192,6 +198,9 @@
         "files": [
             "./.env"
         ]
+    },
+    "symfony/form": {
+        "version": "v4.4.20"
     },
     "symfony/framework-bundle": {
         "version": "4.4",
@@ -226,6 +235,18 @@
     "symfony/inflector": {
         "version": "v4.4.20"
     },
+    "symfony/intl": {
+        "version": "v4.4.20"
+    },
+    "symfony/maker-bundle": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
+        }
+    },
     "symfony/mime": {
         "version": "v4.4.20"
     },
@@ -247,8 +268,14 @@
             "./config/packages/test/monolog.yaml"
         ]
     },
+    "symfony/options-resolver": {
+        "version": "v4.4.20"
+    },
     "symfony/orm-pack": {
         "version": "v2.1.0"
+    },
+    "symfony/polyfill-intl-icu": {
+        "version": "v1.22.1"
     },
     "symfony/polyfill-intl-idn": {
         "version": "v1.22.1"
@@ -339,6 +366,19 @@
             "./config/packages/test/twig.yaml",
             "./config/packages/twig.yaml",
             "./templates/base.html.twig"
+        ]
+    },
+    "symfony/validator": {
+        "version": "4.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.3",
+            "ref": "d902da3e4952f18d3bf05aab29512eb61cabd869"
+        },
+        "files": [
+            "./config/packages/test/validator.yaml",
+            "./config/packages/validator.yaml"
         ]
     },
     "symfony/var-dumper": {
