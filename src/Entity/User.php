@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table("user")
  * @ORM\Entity
  * @UniqueEntity("email")
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
 class User implements UserInterface
 {
@@ -38,6 +39,12 @@ class User implements UserInterface
      * @Assert\Email(message="Le format de l'adresse n'est pas correcte.")
      */
     private $email;
+
+    /** 
+     * @ORM\Column(type="json") 
+     */
+
+    private $roles = [];
 
     public function getId()
     {
@@ -79,9 +86,24 @@ class User implements UserInterface
         $this->email = $email;
     }
 
-    public function getRoles()
+   
+   /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
     {
-        return ['ROLE_USER'];
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
     }
 
     public function eraseCredentials()

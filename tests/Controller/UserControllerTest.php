@@ -11,13 +11,13 @@ class UserControllerTest extends WebTestCase
     {
        $client=static::createClient();
        $client->request('GET', '/users');
-       $this->assertResponseStatusCodeSame(Response::HTTP_UNAUTHORIZED);
+       $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
     }
 
     public function testRedirectionToLogin()
     {
        $client=static::createClient();
        $client->request('GET', '/users');
-       $this->assertResponseRedirects('/login');
+       $this->assertResponseRedirects('http://localhost/login');
     }
 }

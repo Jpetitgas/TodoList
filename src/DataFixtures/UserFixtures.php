@@ -24,14 +24,16 @@ class UserFixtures extends Fixture
         $hash = $this->encoder->encodePassword($admin, 'admin');
         $admin->setUsername('admin');
         $admin->setEmail('admin@todo.com');
-        $admin->setPassword($hash);    
+        $admin->setPassword($hash);
+        $admin->setRoles(['ROLE_ADMIN']);    
         $manager->persist($admin);
         
         $user = new User();
         $hash = $this->encoder->encodePassword($user, 'user');
         $user->setUsername('user');
         $user->setEmail('user@todo.com');
-        $user->setPassword($hash);    
+        $user->setPassword($hash);
+        $user->setRoles(['ROLE_USER']);     
         $manager->persist($user);
         
         
