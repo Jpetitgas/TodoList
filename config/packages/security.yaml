@@ -5,7 +5,7 @@ security:
     providers:
         doctrine:
             entity:
-                class: App:User
+                class: App\Entity\User
                 property: username
 
     firewalls:
@@ -14,14 +14,12 @@ security:
             security: false
 
         main:
-            anonymous: ~
-            pattern: ^/
-            form_login:
-                login_path: login
-                check_path: login_check
-                always_use_default_target_path:  true
-                default_target_path:  /
-            logout: ~
+            anonymous: true
+            guard:
+                authenticators:
+                    - App\Security\UserAuthenticator
+            logout:
+                path: logout
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }

@@ -2,32 +2,44 @@
 
 namespace App\Tests\Controller;
 
-use Symfony\Component\HttpFoundation\Response;
+use App\Entity\User;
+use App\Tests\NeedLogin;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserControllerTest extends WebTestCase
 {
+    use NeedLogin;
+
     public function testUsersPage()
     {
-       $client=static::createClient();
-       $client->request('GET', '/users');
-       $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
+        $client = static::createClient();
+        $client->request('GET', '/users');
+        $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
     }
 
     public function testRedirectionToLogin()
     {
-       $client=static::createClient();
-       $client->request('GET', '/users');
-       $this->assertResponseRedirects('http://localhost/login');
+        $client = static::createClient();
+        $client->request('GET', '/users');
+        $this->assertResponseRedirects('/login');
     }
 
-    public function testAuthencatedUserAccessUsersPage()
+    public function testAuthencatedUserAccessUsersPageWithAdminRole()
     {
-       $client=static::createClient();
-       $user = self::$kernel->getContainer()->get('doctrine')->getRepository(User::class)->findOneBy(['username'=>'user']);
-       $session=$client->getContainer()->get('session');
+      $client = static::createClient();
+      $user = $client->getContainer()->get('doctrine')->getRepository(User::class)->findOneBy(['username' => 'admin']);
+      $this->login($client, $user);
+      $client->request('GET', '/users');
+      $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+    }
 
-       $client->request('GET', '/users');
-       $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
+    public function testAuthencatedUserAccessUsersPageWithoutAdminRole()
+    {
+      $client = static::createClient();
+      $user = $client->getContainer()->get('doctrine')->getRepository(User::class)->findOneBy(['username' => 'user']);
+      $this->login($client, $user);
+      $client->request('GET', '/users');
+      $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 }

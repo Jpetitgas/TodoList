@@ -19,11 +19,11 @@ class SecurityControllerTest extends WebTestCase
         $client = static::createClient();
         $crawler= $client->request('GET', '/login');
         $form=$crawler->selectButton('Se connecter')->form([
-            '_username'=> 'user',
-            '_password'=> 'bad'
+            'username'=> 'user',
+            'password'=> 'bad'
         ]);
         $client->submit($form);
-        $this->assertResponseRedirects('http://localhost/login');
+        $this->assertResponseRedirects('/login');
         $client->followRedirect();
         $this->assertSelectorExists('.alert.alert-danger');
        
@@ -33,11 +33,11 @@ class SecurityControllerTest extends WebTestCase
         $client = static::createClient();
         $crawler= $client->request('GET', '/login');
         $form=$crawler->selectButton('Se connecter')->form([
-            '_username'=> 'admin',
-            '_password'=> 'admin'
+            'username'=> 'admin',
+            'password'=> 'admin'
         ]);
         $client->submit($form);
-        $this->assertResponseRedirects('http://localhost/');
+        $this->assertResponseRedirects('/');
                        
     }
 }
