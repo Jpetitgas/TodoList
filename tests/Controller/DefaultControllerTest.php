@@ -13,4 +13,6 @@ class DefaultControllerTest extends WebTestCase
        $client->request('GET', '/');
        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
+
+    
 }
