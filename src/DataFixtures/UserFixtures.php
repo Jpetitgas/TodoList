@@ -3,6 +3,8 @@
 namespace App\DataFixtures;
 
 
+use DateTime;
+use App\Entity\Task;
 use App\Entity\User;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -36,7 +38,24 @@ class UserFixtures extends Fixture
         $user->setRoles(['ROLE_USER']);     
         $manager->persist($user);
         
+        for ($i = 1; $i < 16; $i++) {
+            $task = new Task();
+            $task->setTitle('task'.$i);
+            $task->setContent('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius at ligula nec sollicitudin.');
+            $task->setCreatedAt(new DateTime());
+            ;
+            if ($i < 6) {
+                $task->setUser(null);
+            } elseif ($i > 5 && $i < 11) {
+                $task->setUser($user);
+            } elseif ($i > 10) {
+                $task->setUser($admin);
+            }
+            $manager->persist($task);
+        }
         
         $manager->flush();
     }
+
+    
 }

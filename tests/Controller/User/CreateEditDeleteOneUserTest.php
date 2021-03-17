@@ -7,7 +7,7 @@ use App\Tests\NeedLogin;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-class UserCreateTest extends WebTestCase
+class CreateEditDeleteOneUserTest extends WebTestCase
 {
     use NeedLogin;
 
@@ -23,7 +23,6 @@ class UserCreateTest extends WebTestCase
         $form['user[password][second]'] = 'password';
         $form['user[password][second]'] = 'password';
         $form['user[email]'] = 'email@todo.com';
-        //$form['user[roles][]']='Utilisateur';
         $client->submit($form);
         $this->assertResponseRedirects('/users');
         $client->followRedirect();
@@ -44,7 +43,6 @@ class UserCreateTest extends WebTestCase
         $form['user[password][second]'] = 'password';
         $form['user[password][second]'] = 'password';
         $form['user[email]'] = 'email@todo.com';
-        //$form['user[roles][]']='Utilisateur';
         $client->submit($form);
         $this->assertResponseRedirects('/users');
         $client->followRedirect();
