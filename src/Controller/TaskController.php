@@ -4,12 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Task;
 use App\Form\TaskType;
-use Doctrine\ORM\Mapping\Id;
 use App\Repository\TaskRepository;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\Mapping\Id;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 class TaskController extends AbstractController
 {
@@ -22,6 +22,19 @@ class TaskController extends AbstractController
 
         return $this->render(
             'task/list.html.twig',
+            ['tasks' => $tasks]
+        );
+    }
+
+    /**
+     * @Route("/tasks/done", name="task_list_done", methods={"GET"})
+     */
+    public function tasksDone(TaskRepository $taskRepository)
+    {
+        $tasks = $taskRepository->findBy(['isDone' => 'True']);
+
+        return $this->render(
+            'task/list_done.html.twig',
             ['tasks' => $tasks]
         );
     }
@@ -52,19 +65,20 @@ class TaskController extends AbstractController
     /**
      * @Route("/tasks/{id}/edit", name="task_edit")
      */
-    public function editTask($id, Request $request,TaskRepository $taskRepository)
+    public function editTask($id, Request $request, TaskRepository $taskRepository)
     {
         $task = $taskRepository->find($id);
         if (!($task)) {
             $this->addFlash('error', "Cette tâche n'existe pas");
+
             return $this->RedirectToRoute('task_list');
         }
-        
+
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() &&  $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', 'La tâche a bien été modifiée.');
@@ -85,11 +99,11 @@ class TaskController extends AbstractController
     {
         $task->toggle(!$task->isDone());
         $this->getDoctrine()->getManager()->flush();
-        if ($task->isDone()){
+        if ($task->isDone()) {
             $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle()));
         } else {
             $this->addFlash('success', sprintf('La tâche %s reste à faire.', $task->getTitle()));
-        }       
+        }
 
         return $this->redirectToRoute('task_list');
     }
@@ -97,12 +111,12 @@ class TaskController extends AbstractController
     /**
      * @Route("/tasks/{id}/delete", name="task_delete")
      */
-    public function deleteTask($id,TaskRepository $taskRepository)
+    public function deleteTask($id, TaskRepository $taskRepository)
     {
-        
         $task = $taskRepository->find($id);
         if (!($task)) {
             $this->addFlash('error', "Cette tâche n'existe pas");
+
             return $this->RedirectToRoute('task_list');
         }
         $this->denyAccessUnlessGranted('TASK_DELETE', $task, "Vous n'etes pas l'auteur de cette tâche");
