@@ -49,19 +49,34 @@ class CreateEditDeleteOneTaskTest extends WebTestCase
     {
         $client = static::createClient();
         $user = $client->getContainer()->get('doctrine')->getRepository(User::class)->findOneBy(['username' => 'admin']);
-        $userId=$user->getId();
+        $userId = $user->getId();
         $tasktest = $client->getContainer()->get('doctrine')->getRepository(Task::class)->findOneBy(['title' => 'task']);
         $id = $tasktest->getId();
         $this->assertNotEquals($userId, $id);
-        
     }
 
-    public function testToggleTask()
+    public function testToggleTaskDone()
     {
         $client = static::createClient();
         $user = $client->getContainer()->get('doctrine')->getRepository(User::class)->findOneBy(['username' => 'user']);
         $tasktest = $client->getContainer()->get('doctrine')->getRepository(Task::class)->findOneBy(['title' => 'task']);
-        $statut=$tasktest->isDone();
+        $statut = $tasktest->isDone();
+        $id = $tasktest->getId();
+        $this->login($client, $user);
+        $client->request('GET', "/tasks/$id/toggle");
+        $this->assertNotEquals($tasktest->isDone(), $statut);
+        $tasktest;
+        $this->assertResponseRedirects('/tasks');
+        $client->followRedirect();
+        $this->assertSelectorExists('.alert.alert-success');
+    }
+
+    public function testToggleTaskNotDone()
+    {
+        $client = static::createClient();
+        $user = $client->getContainer()->get('doctrine')->getRepository(User::class)->findOneBy(['username' => 'user']);
+        $tasktest = $client->getContainer()->get('doctrine')->getRepository(Task::class)->findOneBy(['title' => 'task']);
+        $statut = $tasktest->isDone();
         $id = $tasktest->getId();
         $this->login($client, $user);
         $client->request('GET', "/tasks/$id/toggle");
