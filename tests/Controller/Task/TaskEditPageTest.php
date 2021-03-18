@@ -15,7 +15,7 @@ class TaskEditPageTest extends WebTestCase
     {
         $client = static::createClient();
         $user = $client->getContainer()->get('doctrine')->getRepository(User::class)->findOneBy(['username' => 'user']);
-        $lasttask=$client->getContainer()->get('doctrine')->getRepository(Task::class)->findBy(array(), array('id' => 'desc'),1,0);
+        $lasttask=$client->getContainer()->get('doctrine')->getRepository(Task::class)->findBy(array(), array('id' => 'desc'), 1, 0);
         $id=$lasttask[0]->getId();
         $id++;
         $this->login($client, $user);
@@ -24,6 +24,4 @@ class TaskEditPageTest extends WebTestCase
         $client->followRedirect();
         $this->assertSelectorExists('.alert.alert-danger');
     }
-
-    
 }

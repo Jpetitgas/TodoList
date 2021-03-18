@@ -42,12 +42,10 @@ class User implements UserInterface
      */
     private $email;
 
-    /** 
-     * @ORM\Column(type="json") 
+    /**
+     * @ORM\Column(type="json")
      */
-
     private $roles = [];
-
     /**
      * @ORM\OneToMany(targetEntity=Task::class, mappedBy="user")
      */
@@ -98,8 +96,7 @@ class User implements UserInterface
         $this->email = $email;
     }
 
-   
-   /**
+    /**
      * @see UserInterface
      */
     public function getRoles(): array

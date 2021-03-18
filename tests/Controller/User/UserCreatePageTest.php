@@ -27,6 +27,4 @@ class UserCreatePageTest extends WebTestCase
         $client->request('GET', '/users/create');
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
-
-    
 }

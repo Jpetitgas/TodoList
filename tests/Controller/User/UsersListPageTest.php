@@ -42,10 +42,4 @@ class UsersListPageTest extends WebTestCase
         $client->request('GET', '/users');
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
-
-    
-
-    
-    
-    
 }

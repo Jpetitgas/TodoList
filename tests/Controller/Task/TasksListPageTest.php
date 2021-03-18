@@ -31,6 +31,5 @@ class TasksListPageTest extends WebTestCase
         $this->login($client, $user);
         $client->request('GET', '/tasks');
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
-    }    
-    
+    }
 }

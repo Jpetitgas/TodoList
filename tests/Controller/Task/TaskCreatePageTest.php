@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 class TaskCreatePageTest extends WebTestCase
 {
     use NeedLogin;
-     public function testCreateTaskPageWithoutUserConnected()
+    public function testCreateTaskPageWithoutUserConnected()
     {
         $client = static::createClient();
         $client->request('GET', '/tasks/create');
@@ -30,5 +30,5 @@ class TaskCreatePageTest extends WebTestCase
         $this->login($client, $user);
         $client->request('GET', '/tasks/create');
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
-    }    
+    }
 }

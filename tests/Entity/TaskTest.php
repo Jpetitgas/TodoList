@@ -2,7 +2,6 @@
 
 namespace App\Tests\Entity;
 
-
 use DateTime;
 use App\Entity\Task;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -16,32 +15,32 @@ class TaskTest extends KernelTestCase
         $task->setContent('une tache tres,tres longue à réaliser');
         return $task;
     }
-    public function assertHasError(Task $user, int $number=0){
+    public function assertHasError(Task $user, int $number = 0)
+    {
         self::bootKernel();
         $error=self::$container->get('validator')->validate($user);
-        $this->assertCount($number,$error);
+        $this->assertCount($number, $error);
     }
     
     public function testValidEntity()
     {
-        $this->assertHasError($this->getTask(),0);
+        $this->assertHasError($this->getTask(), 0);
     }
     
     public function testInvalidTitle()
     {
         $user=$this->getTask();
         $user->setTitle('');
-        $this->assertHasError($user,1);
+        $this->assertHasError($user, 1);
     }
     
     public function testInvalidContent()
     {
         $user=$this->getTask();
         $user->setContent('');
-        $this->assertHasError($user,1);
-        
+        $this->assertHasError($user, 1);
     }
-     public function testGetterSetter(): void
+    public function testGetterSetter(): void
     {
         $task = new Task();
       
@@ -50,6 +49,5 @@ class TaskTest extends KernelTestCase
         $this->assertFalse($task->getIsDone());
         $task->setIsDone(true);
         $this->assertTrue($task->getIsDone());
-
     }
 }

@@ -40,7 +40,6 @@ class Task
      * @ORM\Column(type="boolean")
      */
     private $isDone;
-
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tasks")
      */

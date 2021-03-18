@@ -14,7 +14,7 @@ class UserDeletePageTest extends WebTestCase
     {
         $client = static::createClient();
         $user = $client->getContainer()->get('doctrine')->getRepository(User::class)->findOneBy(['username' => 'admin']);
-        $lastuser=$client->getContainer()->get('doctrine')->getRepository(User::class)->findBy(array(), array('id' => 'desc'),1,0);
+        $lastuser=$client->getContainer()->get('doctrine')->getRepository(User::class)->findBy(array(), array('id' => 'desc'), 1, 0);
         $id=$lastuser[0]->getId();
         $id++;
         $this->login($client, $user);
@@ -23,6 +23,4 @@ class UserDeletePageTest extends WebTestCase
         $client->followRedirect();
         $this->assertSelectorExists('.alert.alert-danger');
     }
-    
-    
 }

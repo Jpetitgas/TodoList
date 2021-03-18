@@ -47,7 +47,6 @@ class CreateEditDeleteOneUserTest extends WebTestCase
         $this->assertResponseRedirects('/users');
         $client->followRedirect();
         $this->assertSelectorExists('.alert.alert-success');
-        
     }
 
     public function testDeleteLastCreateUser()
@@ -62,5 +61,4 @@ class CreateEditDeleteOneUserTest extends WebTestCase
         $client->followRedirect();
         $this->assertSelectorExists('.alert.alert-success');
     }
-
 }

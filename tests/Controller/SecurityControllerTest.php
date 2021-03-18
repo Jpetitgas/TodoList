@@ -26,7 +26,6 @@ class SecurityControllerTest extends WebTestCase
         $this->assertResponseRedirects('/login');
         $client->followRedirect();
         $this->assertSelectorExists('.alert.alert-danger');
-       
     }
     public function testSuccessfullLogin()
     {
@@ -38,6 +37,5 @@ class SecurityControllerTest extends WebTestCase
         ]);
         $client->submit($form);
         $this->assertResponseRedirects('/');
-                       
     }
 }
