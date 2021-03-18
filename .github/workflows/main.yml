@@ -15,5 +15,5 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-suggest
 
-      - name: PHPUnit
-        uses: chindit/actions-phpunit-symfony@master
+      - name: Run unit test suite
+        run: bin/phpunit --coverage-clover clover.xml
