@@ -31,12 +31,7 @@ jobs:
       matrix:
         php-versions: ['7.1.3']
     steps:
-      # —— Check Elasticsearch 🔎 ——————————————————————————————————————————————
-      - name: Check the Elasticsearch connection from runner host
-        run: |
-          curl -fsSL "http://localhost:$ES_HTTP_PORT"
-          curl -fsSL "http://localhost:$ES_HTTP_PORT/_cluster/health?pretty"
-
+      
       # —— Setup Github actions 🐙 —————————————————————————————————————————————
       # https://github.com/actions/checkout (official)
       - name: Checkout
