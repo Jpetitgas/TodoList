@@ -79,7 +79,7 @@ class UserController extends AbstractController
     /**
      * @Route("/users/{id}/delete", name="user_delete")
      */
-    public function deleteUser($id, Request $request, UserRepository $userRepository, EntityManagerInterface $em)
+    public function deleteUser($id, UserRepository $userRepository, EntityManagerInterface $em)
     {
         $user = $userRepository->find($id);
         if (!($user)) {
