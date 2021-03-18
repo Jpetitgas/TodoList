@@ -15,5 +15,8 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-suggest
 
+      - name: Fixtures loader
+        run: bin/console d:m:m --env=test -n && bin/console d:f:l --env=test -n
+      
       - name: Run unit test suite
         run: vendor/bin/phpunit --coverage-clover clover.xml
