@@ -39,6 +39,9 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
         $this->passwordEncoder = $passwordEncoder;
     }
 
+    /**
+     * @return [type]
+     */
     public function supports(Request $request)
     {
         return self::LOGIN_ROUTE === $request->attributes->get('_route')
@@ -60,6 +63,11 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
         return $credentials;
     }
 
+    /**
+     * @param mixed $credentials
+     *
+     * @return [type]
+     */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
         $token = new CsrfToken('authenticate', $credentials['csrf_token']);
@@ -77,19 +85,29 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
         return $user;
     }
 
+    /**
+     * @param mixed $credentials
+     *
+     * @return [type]
+     */
     public function checkCredentials($credentials, UserInterface $user)
     {
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
     }
 
     /**
-     * Used to upgrade (rehash) the user's password automatically over time.
+     * @param mixed $credentials
      */
     public function getPassword($credentials): ?string
     {
         return $credentials['password'];
     }
 
+    /**
+     * @param mixed $providerKey
+     *
+     * @return [type]
+     */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
@@ -100,6 +118,9 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
         throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 
+    /**
+     * @return [type]
+     */
     protected function getLoginUrl()
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);

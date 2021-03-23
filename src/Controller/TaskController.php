@@ -14,6 +14,8 @@ use Symfony\Component\Security\Core\Security;
 class TaskController extends AbstractController
 {
     /**
+     * @return [type]
+     *
      * @Route("/tasks", name="task_list")
      */
     public function listTask(TaskRepository $taskRepository)
@@ -27,6 +29,8 @@ class TaskController extends AbstractController
     }
 
     /**
+     * @return [type]
+     *
      * @Route("/tasks/done", name="task_list_done", methods={"GET"})
      */
     public function tasksDone(TaskRepository $taskRepository)
@@ -40,6 +44,8 @@ class TaskController extends AbstractController
     }
 
     /**
+     * @return [type]
+     *
      * @Route("/tasks/create", name="task_create")
      */
     public function createTask(Request $request, Security $security)
@@ -63,6 +69,10 @@ class TaskController extends AbstractController
     }
 
     /**
+     * @param mixed $id
+     *
+     * @return [type]
+     *
      * @Route("/tasks/{id}/edit", name="task_edit")
      */
     public function editTask($id, Request $request, TaskRepository $taskRepository)
@@ -93,6 +103,8 @@ class TaskController extends AbstractController
     }
 
     /**
+     * @return [type]
+     *
      * @Route("/tasks/{id}/toggle", name="task_toggle")
      */
     public function toggleTask(Task $task)
@@ -109,6 +121,10 @@ class TaskController extends AbstractController
     }
 
     /**
+     * @param mixed $id
+     *
+     * @return [type]
+     *
      * @Route("/tasks/{id}/delete", name="task_delete")
      */
     public function deleteTask($id, TaskRepository $taskRepository)

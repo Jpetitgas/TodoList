@@ -8,6 +8,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     /**
+     * @return [type]
+     *
      * @Route("/", name="homepage")
      */
     public function index()

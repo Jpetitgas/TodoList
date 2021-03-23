@@ -14,6 +14,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class UserController extends AbstractController
 {
     /**
+     * @return [type]
+     *
      * @Route("/users", name="user_list")
      */
     public function listUsers(UserRepository $userRepository)
@@ -27,6 +29,8 @@ class UserController extends AbstractController
     }
 
     /**
+     * @return [type]
+     *
      * @Route("/users/create", name="user_create")
      */
     public function createUser(Request $request, UserPasswordEncoderInterface $encoder)
@@ -51,6 +55,10 @@ class UserController extends AbstractController
     }
 
     /**
+     * @param mixed $id
+     *
+     * @return [type]
+     *
      * @Route("/users/{id}/edit", name="user_edit")
      */
     public function editUser($id, Request $request, UserPasswordEncoderInterface $encoder, UserRepository $userRepository)
@@ -77,6 +85,10 @@ class UserController extends AbstractController
     }
 
     /**
+     * @param mixed $id
+     *
+     * @return [type]
+     *
      * @Route("/users/{id}/delete", name="user_delete")
      */
     public function deleteUser($id, UserRepository $userRepository, EntityManagerInterface $em)
