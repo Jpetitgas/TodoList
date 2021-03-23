@@ -20,7 +20,7 @@ class TaskVoter extends Voter
     /**
      * @param mixed $attribute
      * @param mixed $subject
-     * 
+     *
      * @return [type]
      */
     protected function supports($attribute, $subject)
@@ -32,8 +32,7 @@ class TaskVoter extends Voter
     /**
      * @param mixed $attribute
      * @param mixed $subject
-     * @param TokenInterface $token
-     * 
+     *
      * @return [type]
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
