@@ -4,25 +4,36 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
-use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserController extends AbstractController
 {
     /**
+     * @return [type]
+     *
      * @Route("/users", name="user_list")
      */
-    public function listAction()
+    public function listUsers(UserRepository $userRepository)
     {
-        return $this->render('user/list.html.twig', ['users' => $this->getDoctrine()->getRepository('App:User')->findAll()]);
+        $users = $userRepository->findAll();
+
+        return $this->render(
+            'user/list.html.twig',
+            ['users' => $users]
+        );
     }
 
     /**
+     * @return [type]
+     *
      * @Route("/users/create", name="user_create")
      */
-    public function createAction(Request $request, UserPasswordEncoderInterface $encoder)
+    public function createUser(Request $request, UserPasswordEncoderInterface $encoder)
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -33,10 +44,8 @@ class UserController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $password = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
-
             $em->persist($user);
             $em->flush();
-
             $this->addFlash('success', "L'utilisateur a bien été ajouté.");
 
             return $this->redirectToRoute('user_list');
@@ -46,25 +55,55 @@ class UserController extends AbstractController
     }
 
     /**
+     * @param mixed $id
+     *
+     * @return [type]
+     *
      * @Route("/users/{id}/edit", name="user_edit")
      */
-    public function editAction(User $user, Request $request, UserPasswordEncoderInterface $encoder)
+    public function editUser($id, Request $request, UserPasswordEncoderInterface $encoder, UserRepository $userRepository)
     {
-        $form = $this->createForm(UserType::class, $user);
+        $user = $userRepository->find($id);
+        if (!($user)) {
+            $this->addFlash('error', "L'utilisateur n'existe pas");
 
+            return $this->RedirectToRoute('user_list');
+        }
+        $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
-
             $this->getDoctrine()->getManager()->flush();
-
             $this->addFlash('success', "L'utilisateur a bien été modifié");
 
             return $this->redirectToRoute('user_list');
         }
 
         return $this->render('user/edit.html.twig', ['form' => $form->createView(), 'user' => $user]);
+    }
+
+    /**
+     * @param mixed $id
+     *
+     * @return [type]
+     *
+     * @Route("/users/{id}/delete", name="user_delete")
+     */
+    public function deleteUser($id, UserRepository $userRepository, EntityManagerInterface $em)
+    {
+        $user = $userRepository->find($id);
+        if (!($user)) {
+            $this->addFlash('error', "L'utilisateur n'existe pas");
+
+            return $this->RedirectToRoute('user_list');
+        }
+
+        $em->remove($user);
+        $em->flush();
+        $this->addFlash('success', "L'utilisateur a bien été supprimé");
+
+        return $this->RedirectToRoute('user_list');
     }
 }
