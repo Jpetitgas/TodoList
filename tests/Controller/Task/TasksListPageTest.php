@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Controller\User;
+namespace App\Tests\Controller\Task;
 
 use App\Entity\User;
 use App\Tests\NeedLogin;
@@ -30,6 +30,15 @@ class TasksListPageTest extends WebTestCase
         $user = $client->getContainer()->get('doctrine')->getRepository(User::class)->findOneBy(['username' => 'user']);
         $this->login($client, $user);
         $client->request('GET', '/tasks');
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+    }
+    public function testShowTasksListDone(): void
+    {
+         $client = static::createClient();
+        $user = $client->getContainer()->get('doctrine')->getRepository(User::class)->findOneBy(['username' => 'user']);
+        $this->login($client, $user);
+        $client->request('GET','/tasks/done');
+
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
 }

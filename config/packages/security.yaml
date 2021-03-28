@@ -20,7 +20,7 @@ security:
                     - App\Security\UserAuthenticator
             logout:
                 path: logout
-
+                
     
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }

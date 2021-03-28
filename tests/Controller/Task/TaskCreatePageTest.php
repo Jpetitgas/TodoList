@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Controller\User;
+namespace App\Tests\Controller\Task;
 
 use App\Entity\User;
 use App\Tests\NeedLogin;
