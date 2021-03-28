@@ -15,8 +15,11 @@ Inside, just setup the DATABASE_URL environment variable with your local db cred
 From your terminal with your own local environment :
 
 php bin/console doctrine:database:create --env=test
+
 php bin/console doctrine:migrations:migrate --env=test
+
 php bin/console doctrine:fixtures:load --env=test
+
 
 Code Quality
 
