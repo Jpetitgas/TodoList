@@ -1,5 +1,7 @@
 # TodoList
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/040e0002d74e47f89e4c161aa3ccd867)](https://app.codacy.com/gh/Jpetitgas/TodoList?utm_source=github.com&utm_medium=referral&utm_content=Jpetitgas/TodoList&utm_campaign=Badge_Grade_Settings)
+
 How to install the project with your own local environment (like Wampserver for to have database)
 
 ## Configuration
