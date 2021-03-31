@@ -25,6 +25,6 @@ From your terminal, go to the project directory and tape those command line :
 * php bin/console doctrine:fixtures:load
 * symfony server:start -d
 
-iden : admin
-
-password: admin
+To connect you can use:
+* username: admin
+* password: admin
