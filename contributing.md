@@ -12,11 +12,9 @@ Issues can be submitted by anyone - seasoned developers or newbies.
 ## Getting Started
 
 1. Fork the project on GitHub. Help Guide to Fork a Repository.
-2. Clone the project.
-3. Create a branch specific to the issue you are working on. git checkout -b update-xxx
 
-> For clarity, name your branch update-xxx or fix-xxx. The xxx is a short description of the changes you're making.
-
+2. Clone the project: ![Screenshot](./public/img/fork.jpg)
+3. Create a branch specific to the issue you are working on. git checkout -b update-xxx (For clarity, name your branch update-xxx or fix-xxx. The xxx is a short description of the changes you're making.)
 4. Open up the project in your favorite text editor, select the file you want to contribute to, and make your changes.
 5. Implement your change and add tests for it.
 6. Ensure the test suite passes.
@@ -42,4 +40,7 @@ To launch tests in local you need to load data fixtures in a test database. Firs
 
 ## Code Quality
 
-By contributing to this project, please ensure to maintain a Grad A quality level from Codacy. phpcs is using in local, follow PSR rules, at the minimum PSR-1, PSR-2 and PSR-4. In addition, respect as much as possible the SOLID principles.
+* By contributing to this project, please ensure to maintain a Grad A quality level from Codacy.
+* phpcs is using in local, follow PSR rules, at the minimum PSR-1, PSR-2 and PSR-4:
+vendor/bin/php-cs-fixer fix src
+* In addition, respect as much as possible the SOLID principles.
