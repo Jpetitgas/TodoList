@@ -12,7 +12,6 @@ Issues can be submitted by anyone - seasoned developers or newbies.
 ## Getting Started
 
 1. Fork the project on GitHub. Help Guide to Fork a Repository.
-
 2. Clone the project: ![Screenshot](./public/img/fork.jpg)
 3. Create a branch specific to the issue you are working on. git checkout -b update-xxx (For clarity, name your branch update-xxx or fix-xxx. The xxx is a short description of the changes you're making.)
 4. Open up the project in your favorite text editor, select the file you want to contribute to, and make your changes.
