@@ -1,6 +1,6 @@
 # Contributor's Guide
 
-Issues can be submitted by anyone - seasoned developers or newbies.
+Issues can be submitted by anyone.
 
 ## Contents
 
